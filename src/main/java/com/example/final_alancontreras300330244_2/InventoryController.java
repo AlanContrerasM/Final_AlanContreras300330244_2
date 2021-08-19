@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//Github link:
+//Github link: https://github.com/AlanContrerasM/Final_AlanContreras300330244_2
 @SessionAttributes({"id","desc","errMsg","errorMessage"})
 @RequestMapping
 @Controller
@@ -49,6 +49,8 @@ public class InventoryController {
         model.put("amount",filteredTodos.get(0).getLoanamount());
         model.put("years",filteredTodos.get(0).getYears());
         model.put("type",filteredTodos.get(0).getLoantype());
+
+
 
 
         return "loantable";
@@ -105,6 +107,33 @@ public class InventoryController {
         model.clear();
         return "redirect:/";
     }
+
+
+    @RequestMapping(value = "/amortizate-todo", method = RequestMethod.GET)
+    public String showAmortizatePage(ModelMap model, @RequestParam(defaultValue = "") String id)
+            throws SQLException, ClassNotFoundException {
+        model.put("id", id);
+        Loan loan = service1.search(id);
+        model.put("clientno",loan.getClientno());
+        model.put("clientname",loan.getClientname());
+        model.put("loanamount",loan.getLoanamount());
+        model.put("years",loan.getYears());
+        model.put("loantype",loan.getLoantype());
+
+        //we have to create an array list with month, Starting amount, interest, monthly payment, and balance
+        double interest =.06;
+
+        if (loan.getLoantype().equals("Business")){
+            interest = .09;
+        }
+        double monthlyPayment= (loan.getLoanamount()*(interest/12)) / (1-Math.pow(1+ interest/12, loan.getYears()*12));
+
+
+
+
+        return "loanamort";
+    }
+
 
 
 
