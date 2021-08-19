@@ -19,7 +19,40 @@
 <div class="container">
     <h1>Projected table of customer number: ${clientno}</h1>
     <h1>Name: ${clientname}</h1>
+    <table class="table ">
+        <thead>
+        <tr>
+            <th>Month</th>
+            <th>Starting Amount</th>
+            <th>Interest</th>
+            <th>Monthly Payment</th>
+            <th>Ending Balance</th>
 
+        </tr>
+        </thead>
+        <tbody>
+
+        <c:forEach items="${todos}" var="todo">
+
+
+
+            <tr>
+                <td>${todo.month}</td>
+                <td>${todo.startingAmount}</td>
+                <td>${todo.interest}</td>
+                <td>${todo.monthlyPayment}</td>
+                <td>${todo.endingBalance}</td>
+
+
+
+
+
+            </tr>
+
+
+        </c:forEach>
+        </tbody>
+    </table>
 
 
 </div>

@@ -128,8 +128,14 @@ public class InventoryController {
         }
         double monthlyPayment= (loan.getLoanamount()*(interest/12)) / (1-Math.pow(1+ interest/12, loan.getYears()*12));
 
+        ArrayList<AmortInfo> row = new ArrayList<AmortInfo>();
+        double finalAmt = loan.getLoanamount();
+        for(int i = 0 ; i < loan.getYears()*12; i++){
+            row.add(new AmortInfo(i,0,0, monthlyPayment, finalAmt));
+            finalAmt -= monthlyPayment;
+        }
 
-
+        model.addAttribute("todos", row);
 
         return "loanamort";
     }
